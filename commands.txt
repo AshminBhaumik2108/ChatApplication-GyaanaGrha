@@ -1,0 +1,29 @@
+# Create and activate Python virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+pip install -U langchain-community
+
+# Ingest knowledge base documents into Chroma
+python ingest.py
+
+# Run Streamlit app
+streamlit run app.py
+
+# Run Chroma database server locally (default port 8000)
+chromadb run --path data/chroma
+
+# If you want to specify a custom port (e.g., 8080)
+chromadb run --path data/chroma --host 0.0.0.0 --port 8080
+
+# Run tests
+python tests/test_retrieval.py
+python tests/test_sentiment.py
+
+# If you get "command not found: chromadb", install Chroma CLI globally:
+pip install chromadb[cli]
+
+# Then run Chroma DB server:
+chromadb run --path data/chroma

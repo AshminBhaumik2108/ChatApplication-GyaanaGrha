@@ -1,0 +1,16 @@
+langchain>=0.2
+langchain-google-genai>=1.0.5
+google-generativeai>=0.7.2
+chromadb>=0.5
+sentence-transformers>=3.0
+transformers>=4.41
+torch
+pydantic>=2.7
+python-dotenv>=1.0
+tiktoken
+streamlit>=1.36
+unstructured
+markdown
+pypdf
+numpy
+pandas

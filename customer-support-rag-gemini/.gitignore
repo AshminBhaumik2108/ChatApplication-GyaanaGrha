@@ -1,0 +1,82 @@
+# -------------------------
+# Python cache & build files
+# -------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+*.egg-info/
+*.egg
+build/
+dist/
+
+# -------------------------
+# Virtual environments
+# -------------------------
+venv/
+.env/
+.venv/
+
+# -------------------------
+# Environment & secrets
+# -------------------------
+.env
+.env.*
+!env.example   # keep example env
+*.key
+*.pem
+*.crt
+
+# -------------------------
+# OS-specific files
+# -------------------------
+.DS_Store
+Thumbs.db
+
+# -------------------------
+# Logs
+# -------------------------
+*.log
+logs/
+*.out
+
+# -------------------------
+# Jupyter Notebook checkpoints
+# -------------------------
+.ipynb_checkpoints/
+
+# -------------------------
+# VS Code settings
+# -------------------------
+.vscode/
+.history/
+
+# -------------------------
+# ChromaDB local data
+# -------------------------
+data/chroma/
+*.sqlite3
+*.parquet
+
+# -------------------------
+# PDFs & large local files
+# -------------------------
+data/knowledge_base/*.pdf
+
+# -------------------------
+# Test cache
+# -------------------------
+.pytest_cache/
+.tox/
+coverage/
+htmlcov/
+
+# -------------------------
+# Temporary files
+# -------------------------
+tmp/
+temp/
+*.tmp
+*.swp
