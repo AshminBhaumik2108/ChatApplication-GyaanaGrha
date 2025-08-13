@@ -2,7 +2,7 @@ from langchain.prompts import PromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnableParallel, RunnablePassthrough
 from langchain.memory import ConversationBufferMemory
-from langchain.chains import ConversationalRetrievalChain  # Import ConversationalRetrievalChain
+from langchain.chains import ConversationalRetrievalChain  
 from backend.llm import get_llm
 from backend.vectorstore import get_vectorstore
 from backend.sentiment import analyze_sentiment
@@ -16,12 +16,12 @@ memory = ConversationBufferMemory(return_messages=True)
 # Prompt template for the LLM, now includes both context and history.
 answer_prompt = PromptTemplate(
     template=(
-        "You are a warm, empathetic, and highly efficient customer support agent, trained to respond in a "
+        "We are a warm, empathetic, and highly efficient customer support agent, trained to respond in a "
         "professional yet approachable manner. Your responses must balance emotional understanding with practical, "
         "actionable solutions.\n\n"
         "### Instructions:\n"
         "1. First, acknowledge the customer's emotions explicitly (e.g., frustration, confusion, excitement) "
-        "and reassure them that you are here to help.\n"
+        "and reassure them that We are here to help.\n"
         "2. Then, address their query using ONLY the provided context — do not invent facts.\n"
         "3. Provide the solution in clear, concise steps (numbered if more than one step).\n"
         "4. If there is insufficient context, clearly state that and politely ask a targeted clarifying question.\n"
@@ -57,6 +57,7 @@ def run_chain(query, history, temperature=0.5, top_k=4):
     vs = get_vectorstore()
     retriever = vs.as_retriever(search_kwargs={"k": top_k})
 
+    # Analyze sentiment : NEGATIVE, NEUTRAL, POSITIVE...
     sentiment = analyze_sentiment(query)
     escalation_flag = should_escalate(history)
     escalation_info = {"flag": escalation_flag, "reason": escalation_reason(history) if escalation_flag else ""}

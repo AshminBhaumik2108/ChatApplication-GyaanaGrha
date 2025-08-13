@@ -15,14 +15,14 @@ streamlit run app.py
 # Run Chroma database server locally (default port 8000)
 chromadb run --path data/chroma
 
-# If you want to specify a custom port (e.g., 8080)
+# If We want to specify a custom port (e.g., 8080)
 chromadb run --path data/chroma --host 0.0.0.0 --port 8080
 
 # Run tests
 python tests/test_retrieval.py
 python tests/test_sentiment.py
 
-# If you get "command not found: chromadb", install Chroma CLI globally:
+# If We get "command not found: chromadb", install Chroma CLI globally:
 pip install chromadb[cli]
 
 # Then run Chroma DB server:

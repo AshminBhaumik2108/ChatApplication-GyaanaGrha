@@ -1,3 +1,7 @@
+# This is a setup script for the Customer Support RAG project is we 
+# want to set up the environment and install dependencies.
+# Developed by : Ashmin Bhaumik
+
 #!/bin/bash
 # Setup script for Customer Support RAG project
 # Usage: bash setup.sh
@@ -27,8 +31,8 @@ echo "Installing langchain-community loaders (required for document ingestion)..
 pip install -U langchain-community
 
 # Install Streamlit for the web app.....
-# Install Chroma CLI for running local Chroma DB server
-echo "Installing Chroma CLI for local Chroma DB server..."
+# Install Chroma CLI for running local ChromaDB server......
+echo "Installing Chroma CLI for local ChromaDB server..."
 pip install "chromadb[cli]"
 
 echo "Setup complete!"
@@ -43,4 +47,4 @@ echo "5. (Optional) To run Chroma DB server locally: chromadb run --path data/ch
 echo "If deploying on Render, ensure your requirements.txt includes all dependencies."
 echo "Do NOT use chromadb run --path ... for serverless hosting; use Chroma in 'client' mode (default in code)."
 echo "Render will run pip install -r requirements.txt automatically."
-echo "You may need to set GOOGLE_API_KEY and other env vars in Render dashboard."
+echo "We may need to set GOOGLE_API_KEY and other env vars in Render dashboard."

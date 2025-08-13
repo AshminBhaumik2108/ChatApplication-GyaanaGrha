@@ -20,7 +20,7 @@ To enhance the user experience, **GyaanaGrha** now features a **Streamlit-based 
 
 ## 📋 Installation
 
-Make sure you have Python 3.8+ installed.  
+Make sure We have Python 3.8+ installed.  
 Clone this repository and install dependencies:
 
 # 🛠 Environment Configuration Guide
