@@ -1,6 +1,6 @@
 import os
-from langchain_community.document_loaders import UnstructuredFileLoader, PyPDFLoader, CSVLoader, TextLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import UnstructuredFileLoader, PyPDFLoader, CSVLoader, TextLoader  # updated import
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from backend.embeddings import get_embeddings
 from backend.vectorstore import get_vectorstore
 from backend import config

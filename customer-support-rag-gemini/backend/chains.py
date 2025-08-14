@@ -1,8 +1,8 @@
 from langchain.prompts import PromptTemplate
-from langchain.schema.output_parser import StrOutputParser
+from langchain.schema import StrOutputParser
 from langchain.schema.runnable import RunnableParallel, RunnablePassthrough
 from langchain.memory import ConversationBufferMemory
-from langchain.chains import ConversationalRetrievalChain  
+from langchain.chains import ConversationalRetrievalChain
 from backend.llm import get_llm
 from backend.vectorstore import get_vectorstore
 from backend.sentiment import analyze_sentiment

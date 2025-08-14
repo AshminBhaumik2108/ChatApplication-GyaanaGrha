@@ -1,17 +1,49 @@
 langchain>=0.2
+
+# langchain-google-genai >=1.0.5 supports Python 3.11
 langchain-google-genai>=1.0.5
+
+# google-generativeai >=0.7.2 supports Python 3.11
 google-generativeai>=0.7.2
+
+# chromadb >=0.5 supports Python 3.11
 chromadb>=0.5
+
+# sentence-transformers >=3.0 supports Python 3.11
 sentence-transformers>=3.0
+
+# transformers >=4.41 supports Python 3.11
 transformers>=4.41
+
+# torch supports Python 3.11 (no version pin needed unless you hit platform-specific issues)
 torch
+
+# pydantic >=2.7 supports Python 3.11
 pydantic>=2.7
+
+# python-dotenv >=1.0 supports Python 3.11
 python-dotenv>=1.0
+
+# tiktoken supports Python 3.11
 tiktoken
+
+# streamlit >=1.36 supports Python 3.11
 streamlit>=1.36
+
+# unstructured supports Python 3.11
 unstructured
+
+# markdown supports Python 3.11
 markdown
+
+# pypdf supports Python 3.11
 pypdf
+
+# numpy supports Python 3.11
 numpy
+
+# pandas supports Python 3.11
 pandas
-pysqlite3-binary
+
+# langchain-community required for LangChain >=0.2 vectorstores/embeddings/document_loaders
+langchain-community

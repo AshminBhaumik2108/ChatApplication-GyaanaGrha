@@ -7,7 +7,7 @@ except ImportError:
     pass
 
 import chromadb
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma  # updated import
 from backend.embeddings import get_embeddings
 from backend import config
 
