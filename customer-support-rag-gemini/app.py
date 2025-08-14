@@ -21,6 +21,8 @@ st.sidebar.title("Settings")
 api_key = st.sidebar.text_input("Google API Key", type="password", value="", placeholder="Enter API Key")
 if api_key:
     os.environ["GOOGLE_API_KEY"] = api_key
+# Temperature and Top K sliders for LLM parameters...
+# (Mainly Not Implemented) ---- 
 temperature = st.sidebar.slider("Temperature", 0.0, 1.0, 0.5)
 k = st.sidebar.slider("Top K", 1, 10, 4)
 st.sidebar.markdown("---")

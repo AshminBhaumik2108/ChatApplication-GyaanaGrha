@@ -14,3 +14,4 @@ markdown
 pypdf
 numpy
 pandas
+pysqlite3-binary

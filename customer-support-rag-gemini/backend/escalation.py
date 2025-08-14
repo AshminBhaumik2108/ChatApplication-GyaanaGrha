@@ -11,7 +11,7 @@ def should_escalate(history, N=2):
     if len(user_turns) < N:
         return False
 
-    lastN = user_turns[-N:]
+    lastN = user_turns[-N:] # All the user messages in the last N turns....
 
     # Rule 1: Last N user messages have NEGATIVE sentiment
     if all(t.get("sentiment") == "NEGATIVE" for t in lastN):
