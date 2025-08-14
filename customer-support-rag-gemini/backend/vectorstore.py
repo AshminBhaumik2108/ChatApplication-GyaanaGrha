@@ -1,13 +1,13 @@
-# Monkey-patch sqlite3 to use pysqlite3 if available (for ChromaDB compatibility)
+# Monkey-patch sqlite3 to use pysqlite3 for ChromaDB compatibility (SQLite >= 3.35.0)
+import sys
 try:
     import pysqlite3
-    import sys
-    sys.modules["sqlite3"] = pysqlite3
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 except ImportError:
     pass
 
 import chromadb
-from langchain_community.vectorstores import Chroma  # updated import
+from langchain_community.vectorstores import Chroma
 from backend.embeddings import get_embeddings
 from backend import config
 
