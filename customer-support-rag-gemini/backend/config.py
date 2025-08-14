@@ -19,9 +19,13 @@ GEMINI_MODEL = get_env("GEMINI_MODEL", "models/gemini-1.5-flash")
 EMBEDDING_MODEL = get_env("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 
 # Data directories (make absolute to avoid path issues)
-BASE_DIR = os.getcwd()
-CHROMA_DIR = os.path.join(BASE_DIR, get_env("CHROMA_DIR", "data/chroma"))
-KB_DIR = os.path.join(BASE_DIR, get_env("KB_DIR", "data/knowledge_base"))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CHROMA_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "chroma"))
+KB_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "knowledge_base"))
+
+# Ensure directories exist...
+print("CHROMA_DIR:", CHROMA_DIR)
+print("Exists:", os.path.exists(CHROMA_DIR))
 
 # Retrieval & LLM settings
 RETRIEVE_K = get_env("RETRIEVE_K", 4, int)
