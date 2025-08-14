@@ -35,7 +35,7 @@ if st.sidebar.button("Submit rating"):
     st.sidebar.success(f"Avg: {avg:.2f}")
 
 # Title and description of the Streamlit app...
-st.title("Customer Support Chat (Gyaana-grha Application for Customer Support)")
+st.title("Customer Support Chat (Gyaana-grha Application for Customer Supports)")
 st.caption("Analyzing customer sentiment and escalation patterns to provide empathetic and effective responses.")
 
 # for turn in st.session_state.history:
