@@ -48,5 +48,6 @@ pandas
 # langchain-community required for LangChain >=0.2 vectorstores/embeddings/document_loaders
 langchain-community
 
-# Added for ChromaDB compatibility with SQLite >= 3.35.0
-pysqlite3-binary
+# Added for ChromaDB compatibility with SQLite >= 3.35.0 (skip on macOS)
+pysqlite3-binary; sys_platform != 'darwin'
+
