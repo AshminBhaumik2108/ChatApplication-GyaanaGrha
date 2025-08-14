@@ -54,18 +54,6 @@ logs/
 .history/
 
 # -------------------------
-# ChromaDB local data
-# -------------------------
-data/chroma/
-*.sqlite3
-*.parquet
-
-# -------------------------
-# PDFs & large local files
-# -------------------------
-data/knowledge_base/*.pdf
-
-# -------------------------
 # Test cache
 # -------------------------
 .pytest_cache/
