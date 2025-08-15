@@ -9,12 +9,13 @@ from backend.sentiment import analyze_sentiment
 from backend.escalation import should_escalate, escalation_reason
 from backend.utils import timeit
 
-# Initialize ConversationBufferMemory for the session.
-# This stores both user and assistant messages.
+# Initialize ConversationBufferMemory for the session....
+# This stores both user and assistant messages....
 memory = ConversationBufferMemory(return_messages=True)
 
-# Prompt template for the LLM, now includes both context and history.
+# Prompt template for the LLM, now includes both context and history....
 answer_prompt = PromptTemplate(
+    # Template : Haves the 
     template=(
         "We are a warm, empathetic, and highly efficient customer support agent, trained to respond in a "
         "professional yet approachable manner. Your responses must balance emotional understanding with practical, "
@@ -44,6 +45,7 @@ answer_prompt = PromptTemplate(
     input_variables=["query", "context", "sentiment_label", "mood", "escalation_flag", "history"]
 )
 
+# Get tone guidance based on sentiment.....
 def get_tone_guidance(label):
     if label == "NEGATIVE":
         return "apologetic, calm, step-by-step, offer escalation if needed"
@@ -62,14 +64,14 @@ def run_chain(query, history, temperature=0.5, top_k=4):
     escalation_flag = should_escalate(history)
     escalation_info = {"flag": escalation_flag, "reason": escalation_reason(history) if escalation_flag else ""}
 
-    # Update memory with all turns in history (user and assistant)
+    # Update memory with all turns in history (user and assistant)....
     for turn in history:
         if turn["role"] == "user":
             memory.chat_memory.add_user_message(turn["text"])
         elif turn["role"] == "assistant":
             memory.chat_memory.add_ai_message(turn["text"])
 
-    # Build conversation history string for prompt
+    # Build conversation history string for prompt......
     conversation_history = ""
     for msg in memory.chat_memory.messages:
         if msg.type == "human":
@@ -77,11 +79,11 @@ def run_chain(query, history, temperature=0.5, top_k=4):
         elif msg.type == "ai":
             conversation_history += f"Assistant: {msg.content}\n"
 
-    # Retrieve context from ChromaDB
+    # Retrieve context from ChromaDB.....
     docs = retriever.get_relevant_documents(query)
     context = "\n\n".join(d.page_content[:1000] for d in docs)
 
-    # Compose prompt variables for the LLM
+    # Compose prompt variables for the LLM.......
     prompt_vars = {
         "query": query,
         "context": context,
@@ -91,19 +93,22 @@ def run_chain(query, history, temperature=0.5, top_k=4):
         "history": conversation_history.strip()
     }
 
+    # Set Temperature and peompt Text.....
     llm = get_llm(temperature=temperature)
-    prompt_text = answer_prompt.format(**prompt_vars)
-    output = llm(prompt=prompt_text)
+    prompt_text = answer_prompt.format(**prompt_vars) # Parse the varibles that are needed in the prompt....
+    output = llm(prompt=prompt_text) # Passing the prompt_text to LLM for the Response....
 
-    # Add the latest user and assistant messages to memory for next turn
+    # Add the latest user and assistant messages to memory for next turn....
     memory.chat_memory.add_user_message(query)
     memory.chat_memory.add_ai_message(str(output))
-
+    # Grab the Sources to attach with the Output Shown for Sources like NotebookLLM....
     sources = [
         {"title": getattr(d.metadata, "source", ""), "snippet": d.page_content[:120]}
         for d in docs
     ]
 
+    # Return the Output type : 
+    # Returns : result, timeInMS...
     return {
         "answer": f"**Question:** {query}\n\n{output}",
         "sources": sources,
