@@ -10,10 +10,6 @@
 echo "Creating Python virtual environment (.venv)..."
 python3 -m venv .venv
 
-# Activate DB server (Chroma DB) if not already running...
-echo "Start Chroma DB server..."
-python3 start_chroma.py
-
 # Than U have to activate the virtual environment....
 echo "Activating virtual environment..."
 source .venv/bin/activate
@@ -26,9 +22,9 @@ pip install --upgrade pip
 echo "Installing required Python packages..."
 pip install -r requirements.txt
 
-# Install additional packages for document loaders....
-echo "Installing langchain-community loaders (required for document ingestion)..."
-pip install -U langchain-community
+# Activate DB server (Chroma DB) if not already running...
+echo "Start Chroma DB server..."
+python3 start_chroma.py
 
 # Install Streamlit for the web app.....
 # Install Chroma CLI for running local ChromaDB server......
