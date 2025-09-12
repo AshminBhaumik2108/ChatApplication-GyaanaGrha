@@ -1,33 +1,34 @@
 import os
 from dotenv import load_dotenv
 
-# Load .env file locally (Streamlit Cloud ignores this, so safe to keep)
+# Load .env file locally (Streamlit Cloud ignores this, so safe to keep).....
 load_dotenv()
 
-# Helper function to safely get environment variables with type casting
+# Helper function to safely get environment variables with type casting.......
 def get_env(var_name, default=None, cast_type=str):
+    # default : If the value is Present in the ENV or it will take the default value present in the Code......
     value = os.getenv(var_name, default)
     try:
         return cast_type(value) if value is not None else default
     except (ValueError, TypeError):
-        print(f"Warning: Could not cast {var_name}='{value}' to {cast_type}. Using default={default}")
+        print(f"Warning: Ashmin we could not cast {var_name}='{value}' to {cast_type}. Using default={default}. Please Check!!!")
         return default
 
-# API & model configurations
+# API & model configurations......
 GOOGLE_API_KEY = get_env("GOOGLE_API_KEY", "")
 GEMINI_MODEL = get_env("GEMINI_MODEL", "models/gemini-1.5-flash")
 EMBEDDING_MODEL = get_env("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 
-# Data directories (make absolute to avoid path issues)
+# Data directories (make absolute to avoid path issues).....
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CHROMA_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "chroma"))
 KB_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "data", "knowledge_base"))
 
-# Ensure directories exist...
+# Ensure directories exist......
 print("CHROMA_DIR:", CHROMA_DIR)
 print("Exists:", os.path.exists(CHROMA_DIR))
 
-# Retrieval & LLM settings
+# Retrieval & LLM settings......
 RETRIEVE_K = get_env("RETRIEVE_K", 4, int)
 TEMPERATURE = get_env("TEMPERATURE", 0.5, float)
 CHUNK_SIZE = get_env("CHUNK_SIZE", 800, int)

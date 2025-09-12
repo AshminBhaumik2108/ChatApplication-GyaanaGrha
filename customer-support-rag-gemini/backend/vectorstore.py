@@ -1,18 +1,23 @@
 # Monkey-patch sqlite3 to use pysqlite3 for ChromaDB compatibility (SQLite >= 3.35.0)
 import sys
 try:
+    # Any code that later imports sqlite3 will actually use pysqlite3 under the case of the Development or Deployment of the file.....
     import pysqlite3
-    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+    # So that the Module can use pysqlite3 instead of sqlite3 for the Better modelDB......
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3') # Important line for the files to handel the error.....
 except ImportError:
     pass
 
+# Importing all the Libraries of the files for the vectorDB : ChromaDB for the Databases......
 import chromadb
 from langchain_community.vectorstores import Chroma
 from backend.embeddings import get_embeddings
 from backend import config
 
+# Vectorstore definition for the embeddings.....
 def get_vectorstore():
     return Chroma(
-        persist_directory=config.CHROMA_DIR,
-        embedding_function=get_embeddings()
+        # Vectorstore for the embeddings.......
+        persist_directory=config.CHROMA_DIR, # Absolute Path for the file to handel the CromaDB.....
+        embedding_function=get_embeddings(), # HuggingFace model for generating embeddings (Mini-LM)......
     )

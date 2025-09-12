@@ -11,11 +11,14 @@ from backend.utils import timeit
 
 # Initialize ConversationBufferMemory for the session....
 # This stores both user and assistant messages....
+# {'history': [HumanMessage(content='Hi'), AIMessage(content='Hello, how can I help?')]}
+
+# Will return the Message in Raw format for return_messages = True..
 memory = ConversationBufferMemory(return_messages=True)
 
 # Prompt template for the LLM, now includes both context and history....
 answer_prompt = PromptTemplate(
-    # Template : Haves the 
+    # Template : Haves the prompt....
     template=(
         "We are a warm, empathetic, and highly efficient customer support agent, trained to respond in a "
         "professional yet approachable manner. Your responses must balance emotional understanding with practical, "
@@ -54,9 +57,14 @@ def get_tone_guidance(label):
     else:
         return "warm and concise, confirm resolution"
 
+# Decoder function for the file to produce the result, latency for the return type.....
+# It a Sugar coating of the function for the file that is Declared in the utils.py file of the backend folder....
 @timeit
 def run_chain(query, history, temperature=0.5, top_k=4):
+    # Initialize vector store and retriever : Function is Declared in the vectorstore.py file.....
     vs = get_vectorstore()
+    # .as_retriever() : cosine similarity (or Chroma’s nearest-neighbor search).....
+    # Top k most similar chunks to return by the as_retriever().....
     retriever = vs.as_retriever(search_kwargs={"k": top_k})
 
     # Analyze sentiment : NEGATIVE, NEUTRAL, POSITIVE...
@@ -80,6 +88,8 @@ def run_chain(query, history, temperature=0.5, top_k=4):
             conversation_history += f"Assistant: {msg.content}\n"
 
     # Retrieve context from ChromaDB.....
+    # .get_relevant_documents() : Function is Declared in the vectorstore.py file....
+    # Does an ANN (Approximate nearest Neighour) Search from the CromaDB vector Database..... cosine Similarity....
     docs = retriever.get_relevant_documents(query)
     context = "\n\n".join(d.page_content[:1000] for d in docs)
 
@@ -95,6 +105,12 @@ def run_chain(query, history, temperature=0.5, top_k=4):
 
     # Set Temperature and peompt Text.....
     llm = get_llm(temperature=temperature)
+
+    # EXAMPLE FILES :   <EXAMPLE FILES>
+    # template = "Hello {name}, welcome to {place}!"
+    # values = {"name": "Ashmin", "place": "LangChain World"}
+    # print(template.format(**values)) # Hello Ashmin, welcome to LangChain World!
+    
     prompt_text = answer_prompt.format(**prompt_vars) # Parse the varibles that are needed in the prompt....
     output = llm(prompt=prompt_text) # Passing the prompt_text to LLM for the Response....
 
@@ -109,6 +125,17 @@ def run_chain(query, history, temperature=0.5, top_k=4):
 
     # Return the Output type : 
     # Returns : result, timeInMS...
+
+    # It can be returned in the following format....
+    # result = ChatResponse(
+    #       answer="Hello, how can I help you?",
+    #       sources=[{"title": "FAQ", "snippet": "password reset steps..."}],
+    #       sentiment={"label": "POSITIVE", "score": 0.85, "mood": "relieved"},
+    #       escalation={"flag": False, "reason": ""},
+    #       latency_ms=120
+    # )
+    # return result
+
     return {
         "answer": f"**Question:** {query}\n\n{output}",
         "sources": sources,
