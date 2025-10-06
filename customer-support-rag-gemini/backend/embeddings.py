@@ -3,5 +3,6 @@ from backend import config
 
 # Model definition for the embeddings.....
 def get_embeddings():
+    # For the configuration of the file of the Hugging face Model file.....
     # This Mini-LM model is used for generating embeddings from text (very fast and Responsive : Also Can Understand Semantic Sentences....)
     return HuggingFaceEmbeddings(model_name=config.EMBEDDING_MODEL)
